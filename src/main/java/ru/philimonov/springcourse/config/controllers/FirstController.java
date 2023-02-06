@@ -17,6 +17,28 @@ public class FirstController {
         return "first/hello";
     }
 
+    @GetMapping("/calculator")
+    public String calculate(@RequestParam(value = "a", required = false) int a, @RequestParam(value = "b", required = false) int b, @RequestParam(value = "action", required = false) String action, Model model) {
+        String result;
+        switch (action) {
+            case ("-"):
+                result = a + " " + action + " " + b + " = " + (a - b);
+                break;
+            case ("*"):
+                result = a + " " + action + " " + b + " = " + (a * b);
+                break;
+            case ("/"):
+                result = a + " " + action + " " + b + " = " + (a * 1. / b);
+                break;
+            default:
+                result = a + " + " + b + " = " + (a + b);
+                break;
+        }
+
+        model.addAttribute("solution", result);
+        return "first/calculator";
+    }
+
     @GetMapping("/goodbye")
     public String goodByePage() {
         return "first/goodbye";
